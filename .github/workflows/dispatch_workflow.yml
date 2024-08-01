@@ -18,7 +18,7 @@
             app-id: ${{ vars.APP_ID }}
             private-key: ${{ secrets.APP_PRIVATE_KEY }}
             owner: ramiz-lido
-            repositories: "${{ github.event.inputs.repository }}"
+            repositories: "$commit-statuses-test"
 
         - name: Checkout
           uses: actions/checkout@v4
