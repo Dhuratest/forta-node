@@ -1,0 +1,55 @@
+---
+  name: "Test dispatch workflow"
+  on:
+    workflow_dispatch:
+    # pull_request:
+    #   branches:
+    #     - main
+
+  jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+      
+        - name: Generate a Github App access token
+          id: generate_app_access_token
+          uses: actions/create-github-app-token@v1
+          with:
+            app-id: ${{ vars.APP_ID }}
+            private-key: ${{ secrets.APP_PRIVATE_KEY }}
+            owner: ramiz-lido
+            repositories: "${{ github.event.inputs.repository }}"
+
+        # - name: Checkout
+        #   uses: actions/checkout@v4
+        #   with:
+        #     ref: ${{ github.event.pull_request.head.sha }}
+
+        - name: Dispatch workflows
+          run: |
+            sha=$(git rev-parse HEAD)
+            branch_name=$(git rev-parse --abbrev-ref HEAD)
+            response=$(curl -X POST \
+              -w "%{http_code}" \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${{ steps.generate_token.outputs.token }}" \
+              https://api.github.com/repos/ramiz-lido/commit-statuses-test/actions/workflows/rv_commit_statuses.yml/dispatches \
+              -d '{
+                "ref": "master",
+                "inputs": {
+                "branch_name": "'"${{ github.sha }}"'",
+                "extra_args": "script",
+                "statuses_sha": "'$sha'",
+                "org": "ramiz-lido",
+                "repository": "commit-statuses-test"
+                }
+              }')
+              if [ "$response" -ge 200 ] && [ "$response" -lt 300 ]; then
+                echo "The request was successful"
+              elif [ "$response" -ge 400 ] && [ "$response" -lt 500 ]; then
+                echo "There was a client error: $response"
+                exit 1
+              else
+                echo "There was a server error: $response"
+                exit 1
+              fi
