@@ -20,8 +20,8 @@
             owner: ramiz-lido
             repositories: "${{ github.event.inputs.repository }}"
 
-        # - name: Checkout
-        #   uses: actions/checkout@v4
+        - name: Checkout
+          uses: actions/checkout@v4
         #   with:
         #     ref: ${{ github.event.pull_request.head.sha }}
 
