@@ -37,9 +37,6 @@
               -d '{
                 "ref": "main",
                 "inputs": {
-                "branch_name": "'"${{ github.sha }}"'",
-                "extra_args": "script",
-                "statuses_sha": "'$sha'",
                 "org": "ramiz-lido",
                 "repository": "commit-statuses-test"
                 }
