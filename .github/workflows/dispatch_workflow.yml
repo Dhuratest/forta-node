@@ -1,10 +1,10 @@
 ---
   name: "Test dispatch workflow"
   on:
-    workflow_dispatch:
-    # pull_request:
-    #   branches:
-    #     - main
+    # workflow_dispatch:
+    pull_request:
+      branches:
+        - main
 
   jobs:
     test:
@@ -22,8 +22,8 @@
 
         - name: Checkout
           uses: actions/checkout@v4
-        #   with:
-        #     ref: ${{ github.event.pull_request.head.sha }}
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
 
         - name: Dispatch workflows
           run: |
@@ -37,6 +37,9 @@
               -d '{
                 "ref": "main",
                 "inputs": {
+                "branch_name": "'"${{ github.sha }}"'",
+                "extra_args": "script",
+                "statuses_sha": "'$sha'",
                 "org": "ramiz-lido",
                 "repository": "commit-statuses-test"
                 }
