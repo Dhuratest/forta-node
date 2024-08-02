@@ -31,7 +31,7 @@
             branch_name=$(git rev-parse --abbrev-ref HEAD)
             response=$(curl -X POST \
               -w "%{http_code}" \
-              -H "Accept: application/vnd.github.v3+json" \
+              -H "Accept: application/vnd.github+json" \
               -H "Authorization: token ${{ steps.generate_app_access_token.outputs.token }}" \
               https://api.github.com/repos/ramiz-lido/commit-statuses-test/actions/workflows/rv_commit_statuses.yml/dispatches \
               -d '{
