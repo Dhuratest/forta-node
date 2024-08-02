@@ -35,7 +35,7 @@
               -H "Authorization: token ${{ steps.generate_app_access_token.outputs.token }}" \
               https://api.github.com/repos/ramiz-lido/commit-statuses-test/actions/workflows/rv_commit_statuses.yml/dispatches \
               -d '{
-                "ref": "master",
+                "ref": "main",
                 "inputs": {
                 "branch_name": "'"${{ github.sha }}"'",
                 "extra_args": "script",
