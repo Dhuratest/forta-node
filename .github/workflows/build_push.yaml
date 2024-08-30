@@ -40,7 +40,7 @@ jobs:
         with:
           registry: ghcr.io
           username: Dhuratest
-          password: ${{ steps.generate_token.outputs.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build docker image
         id: docker_build_candidate
