@@ -12,5 +12,6 @@ COPY . /go/app
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/app/main /go/app/cmd/node/main.go
 
 FROM base
+LABEL org.opencontainers.image.source https://github.com/dhuratest/forta-node
 COPY --from=go-builder /go/app/main /forta-node
 EXPOSE 8089 8090
