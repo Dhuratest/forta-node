@@ -48,6 +48,6 @@ jobs:
         with:
           file: Dockerfile.node
           push: true
-          tags: ghcr.io/dhuratest/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/Dhuratest/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           builder: ${{ steps.buildx.outputs.name }}
           
