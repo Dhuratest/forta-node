@@ -6,6 +6,10 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   IMAGE_NAME: forta-node
   IMAGE_TAG: dev
